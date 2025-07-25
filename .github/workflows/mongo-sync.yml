@@ -8,6 +8,9 @@ on:
       - "index.html"
       - "public/**/*.css" # Track any additional CSS files in public folder
       - "**/*.html" # Track any HTML files in the project
+
+environment: mongodb-atlas
+
 env:
           MONGODB_ATLAS_PROJECT_ID: ${{ secrets.MONGODB_ATLAS_PROJECT_ID }}
           MONGODB_ATLAS_PRIVATE_API_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_API_KEY }}
