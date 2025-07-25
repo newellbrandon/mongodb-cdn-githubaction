@@ -1,0 +1,80 @@
+name: Sync CSS and HTML Files to MongoDB
+
+on:
+  push:
+    # Track changes to CSS and HTML files in the project
+    paths:
+      - "public/styles.css"
+      - "index.html"
+      - "public/**/*.css" # Track any additional CSS files in public folder
+      - "**/*.html" # Track any HTML files in the project
+
+jobs:
+  sync-css-html:
+    name: Sync CSS and HTML Files to MongoDB
+    runs-on: ubuntu-latest
+    env:
+          MONGODB_ATLAS_PROJECT_ID: ${{ secrets.MONGODB_ATLAS_PROJECT_ID }}
+          MONGODB_ATLAS_PRIVATE_API_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_API_KEY }}
+          MONGODB_ATLAS_PUBLIC_API_KEY: ${{ secrets.MONGODB_ATLAS_PUBLIC_API_KEY }}
+    steps:
+      # Grant temporary MongoDB access to this Github Action runner ip address
+      - name: Get the public IP of this runner
+        id: get_gh_runner_ip
+        shell: bash
+        run: |
+          echo "ip_address=$(curl https://checkip.amazonaws.com)" >> "$GITHUB_OUTPUT"
+      - name: Setup MongoDB Atlas cli
+        uses: mongodb/atlas-github-action@v0.2.1
+      - name: Add runner IP to MongoDB access list
+        shell: bash
+        run: |
+          atlas accessLists create ${{ steps.get_gh_runner_ip.outputs.ip_address }} --type ipAddress --comment  "Temporary access for GH Action"
+        
+      
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Use a current LTS version of Node.js
+
+      - name: Install MongoDB Driver
+        run: npm install mongodb
+
+      - name: Get Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            public/**/*.css
+            **/*.html
+
+      - name: Execute Sync Script
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          # Process each changed file individually
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "Syncing file: $file"
+            FILE_PATH="$file" node .github/scripts/sync-to-mongo.js
+          done
+        env:
+          # Pass the secret and other necessary info to the script
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_TIMESTAMP: ${{ github.event.head_commit.timestamp }}
+
+      - name: Summary
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "✅ Successfully processed the following files:"
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "  - $file"
+          done
+          echo "Total files synced: $(echo '${{ steps.changed-files.outputs.all_changed_files }}' | wc -w)"
+
+      - name: Remove GH runner IP from MongDB access list
+        shell: bash
+        run: |
+          atlas accessLists delete ${{ steps.get_gh_runner_ip.outputs.ip_address }} --force

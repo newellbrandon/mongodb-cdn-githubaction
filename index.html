@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample HTML Page</title>
+    <link rel="stylesheet" href="public/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Our Sample Website!!!</h1>
+            <p class="subtitle">A beautiful and modern HTML template</p>
+        </header>
+        
+        <main>
+            <section class="section">
+                <h2>About This Page</h2>
+                <p>Test: File tracking with GH Actions and MDB. BN+RR</p>
+                <p>
+                    This is a sample HTML index file that demonstrates modern web design principles. 
+                    It includes responsive design, clean typography, and engaging visual elements. 
+                    The page is built with semantic HTML5 elements and CSS3 styling to create 
+                    an appealing user experience.
+                </p>
+                <p>
+                    This template can serve as a starting point for your web projects. It's fully 
+                    responsive and will look great on desktop computers, tablets, and mobile devices.
+                </p>
+            </section>
+            
+            <section class="section">
+                <h2>Features</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>🎨 Modern Design</h3>
+                        <p>Clean, contemporary styling with gradient backgrounds and subtle shadows.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📱 Responsive Layout</h3>
+                        <p>Optimized for all devices using CSS Grid and Flexbox technologies.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚡ Fast Loading</h3>
+                        <p>Lightweight code and optimized assets for quick page load times.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Easy to Customize</h3>
+                        <p>Well-organized CSS and semantic HTML make modifications simple.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2>Get Started</h2>
+                <p>
+                    Ready to use this template for your project? You can customize the colors, 
+                    fonts, and layout to match your brand. The modular CSS makes it easy to 
+                    modify individual components without affecting the rest of the design.
+                </p>
+                <a href="#" class="btn">Learn More</a>
+                <a href="#" class="btn btn-secondary">Download Template</a>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Sample Website. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+                <a href="#">Email</a>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Simple JavaScript for enhanced interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling for anchor links
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add click animation to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            console.log('Sample HTML page loaded successfully! 🎉');
+        });
+    </script>
+</body>
+</html>
