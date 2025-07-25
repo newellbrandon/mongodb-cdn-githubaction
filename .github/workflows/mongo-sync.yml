@@ -13,7 +13,7 @@ on:
           
 jobs:
   sync-css-html:
-    environment: mongodb-atlas
+    environment: mongodb-atlas # Make sure to match the `environment` where your secrets are stored.
     env:
           MONGODB_ATLAS_PROJECT_ID: ${{ secrets.MONGODB_ATLAS_PROJECT_ID }}
           MONGODB_ATLAS_PRIVATE_API_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_API_KEY }}
