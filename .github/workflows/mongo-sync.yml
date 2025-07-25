@@ -14,6 +14,10 @@ on:
 jobs:
   sync-css-html:
     environment: mongodb-atlas
+    env:
+          MONGODB_ATLAS_PROJECT_ID: ${{ secrets.MONGODB_ATLAS_PROJECT_ID }}
+          MONGODB_ATLAS_PRIVATE_API_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_API_KEY }}
+          MONGODB_ATLAS_PUBLIC_API_KEY: ${{ secrets.MONGODB_ATLAS_PUBLIC_API_KEY }}
     name: Sync CSS and HTML Files to MongoDB
     runs-on: ubuntu-latest
     
@@ -28,16 +32,8 @@ jobs:
         uses: mongodb/atlas-github-action@v0.2.1
       - name: Add runner IP to MongoDB access list
         shell: bash
-        env:
-          MONGODB_ATLAS_PROJECT_ID: ${{ secrets.MONGODB_ATLAS_PROJECT_ID }}
-          MONGODB_ATLAS_PRIVATE_API_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_API_KEY }}
-          MONGODB_ATLAS_PUBLIC_API_KEY: ${{ secrets.MONGODB_ATLAS_PUBLIC_API_KEY }}
-          
         run: |
           atlas accessLists create ${{ steps.get_gh_runner_ip.outputs.ip_address }} --type ipAddress --comment  "Temporary access for GH Action"
-
-         
-          
       - name: Checkout Repository
         uses: actions/checkout@v4
 
