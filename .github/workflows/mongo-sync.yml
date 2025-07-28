@@ -4,11 +4,12 @@ on:
   push:
     # Track changes to CSS and HTML files in the project
     paths:
-      - "public/styles.css"
-      - "index.html"
+      - "public/*.css"
+      - "*.html"
       - "public/**/*.css" # Track any additional CSS files in public folder
       - "**/*.html" # Track any HTML files in the project
       - "public/**/*.svg"
+      - "public/*.svg"
 
 
           
