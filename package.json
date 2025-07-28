@@ -1,5 +1,5 @@
 {
-  "name": "bn-cdn-on-gh",
+  "name": "mongodb-cdn-githubaction",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RosstonB/bn-cdn-on-gh.git"
+    "url": "git+https://github.com/newellbrandon/mongodb-cdn-githubaction.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/RosstonB/bn-cdn-on-gh/issues"
+    "url": "https://github.com/newellbrandon/mongodb-cdn-githubaction/issues"
   },
-  "homepage": "https://github.com/RosstonB/bn-cdn-on-gh#readme"
+  "homepage": "https://github.com/newellbrandon/mongodb-cdn-githubaction#readme"
 }
