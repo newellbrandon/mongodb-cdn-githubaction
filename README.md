@@ -38,4 +38,14 @@ Upon committing these changes, the workflow will contact MongoDB Atlas to add te
 
 ## Step 3: View assets
 
-WIP - Using NextJS ISR and a query to MongoDB to generate functional webpage with .HTML and .CSS 
+Using NextJS ISR and a query to MongoDB to generate functional webpage with .HTML and .CSS.
+
+```bash
+cd webapp
+npm install
+npm run dev
+```
+
+Open your browser to `http://localhost:3000`
+
+
