@@ -10,7 +10,8 @@ export default function DynamicContent({ files, lastUpdated }) {
     // Find the HTML and CSS files  
     const htmlFile = files.find(f => f.path === 'index.html');  
     const cssFile = files.find(f => f.path === 'public/styles.css' || f.path === 'styles.css');  
-  
+    const svgFile = files.find(f => f.path === 'public/mongodb-icon.svg' || f.path === 'mongodb-icon.svg');
+    
     if (htmlFile) {  
       let content = htmlFile.content;  
         
@@ -22,6 +23,14 @@ export default function DynamicContent({ files, lastUpdated }) {
           `<style>${cssFile.content}</style>`  
         );  
       }  
+        // If we have SVG content, inject it into the HTML
+      if (svgFile) {  
+        // Replace the SVG link with inline SVG  
+        content = content.replace(  
+          /<img[^>]*src="public\/mongodb-icon\.svg"[^>]*>/gi,  
+          `<svg width="300">${svgFile.content}</svg>`  
+        );  
+      }
         
       setHtmlContent(content);  
     }  
