@@ -54,6 +54,7 @@ jobs:
           files: |
             public/**/*.css
             **/*.html
+            public/**/*.svg
 
       - name: Execute Sync Script
         if: steps.changed-files.outputs.any_changed == 'true'
